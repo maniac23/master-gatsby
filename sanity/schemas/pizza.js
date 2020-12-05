@@ -1,4 +1,3 @@
-import { string } from 'prop-types';
 import { MdLocalPizza as icon } from 'react-icons/md';
 
 export default {
@@ -59,7 +58,7 @@ export default {
       return {
         title,
         media,
-        subtitle: tops.join(', ')
+        subtitle: Object.values(toppings).join(', ')
       };
     }
   }
