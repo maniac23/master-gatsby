@@ -17,6 +17,7 @@ const NavStyles = styled.nav`
     align-items: center;
     text-align: center;
     list-style: none;
+    margin-top: -6rem;
   }
   li {
     --rotate: -2deg;
@@ -34,12 +35,16 @@ const NavStyles = styled.nav`
     &:hover {
       --rotate: 3deg;
     }
-    a {
-      font-size: 3rem;
-      text-decoration: none;
-      &:hover {
-        color: var(--red);
-      }
+  }
+
+  a {
+    font-size: 3rem;
+    text-decoration: none;
+    &:hover {
+      color: var(--red);
+    }
+    &[aria-current='page'] {
+      color: var(--red);
     }
   }
 `;
