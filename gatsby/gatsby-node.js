@@ -1,4 +1,5 @@
 import path from 'path';
+import fetch from 'isomorphic-fetch';
 
 async function turnPizzasIntoPages({ graphql, actions }) {
   const pizzaTemplate = path.resolve('./src/templates/Pizza.js');
@@ -19,8 +20,8 @@ async function turnPizzasIntoPages({ graphql, actions }) {
       path: `pizza/${pizza.slug.current}`,
       component: pizzaTemplate,
       context: {
-        slug: pizza.slug.current
-      }
+        slug: pizza.slug.current,
+      },
     });
   });
 }
@@ -43,20 +44,50 @@ async function turnToppingsIntoPages({ graphql, actions }) {
       path: `topping/${topping.name}`,
       component: toppingTemplate,
       context: {
-        topping: topping.name
-      }
+        topping: topping.name,
+      },
     });
   });
 }
 
+async function fetchBeersAndTurnIntoNodes({
+  actions,
+  createNodeId,
+  createContentDigest,
+}) {
+  console.log('get');
+  const res = await fetch('https://sampleapis.com/beers/api/ale');
+  const beers = await res.json();
+  console.log(beers);
+  for (const beer of beers) {
+    const nodeMeta = {
+      id: createNodeId(`beer-${beer.name}`),
+      parent: null,
+      children: [],
+      internal: {
+        type: 'Beer',
+        mediaType: 'application/json',
+        contentDigest: createContentDigest(beer),
+      },
+    };
+    actions.createNode({
+      ...beer,
+      ...nodeMeta,
+    });
+  }
+}
+
+export async function sourceNodes(params) {
+  await Promise.all([fetchBeersAndTurnIntoNodes(params)]);
+}
+
 export async function createPages(params) {
-  console.log('creating pages');
   // creare pages dynamically
   await Promise.all([
     // pizzas
     turnPizzasIntoPages(params),
     // toppings
-    turnToppingsIntoPages(params)
+    turnToppingsIntoPages(params),
     // slicemasters
   ]);
 }
