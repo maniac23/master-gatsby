@@ -40,27 +40,29 @@ const SlicemasterStyles = styled.div`
 
 export default function SlicemastersPage({ data }) {
   const slicemasters = data.slicemasters.nodes;
-  console.log(slicemasters);
   return (
-    <SlicemasterGrid>
-      {slicemasters.map((person) => (
-        <SlicemasterStyles>
-          <Link to={`slicemaster/${person.slug.current}`}>
-            <h2>
-              <span className="mark">{person.name}</span>
-            </h2>
-          </Link>
-          <Img fluid={person.image.asset.fluid} />
-          <p className="description">{person.description}</p>
-        </SlicemasterStyles>
-      ))}
-    </SlicemasterGrid>
+    <>
+      <p>{process.env.GATSBY_PAGE_SIZE}</p>
+      <SlicemasterGrid>
+        {slicemasters.map((person) => (
+          <SlicemasterStyles key={person.id}>
+            <Link to={`slicemaster/${person.slug.current}`}>
+              <h2>
+                <span className="mark">{person.name}</span>
+              </h2>
+            </Link>
+            <Img fluid={person.image.asset.fluid} />
+            <p className="description">{person.description}</p>
+          </SlicemasterStyles>
+        ))}
+      </SlicemasterGrid>
+    </>
   );
 }
 
 export const query = graphql`
-  query {
-    slicemasters: allSanityPerson {
+  query($skip: Int = 0, $pageSize: Int = 2) {
+    slicemasters: allSanityPerson(limit: $pageSize, skip: $skip) {
       totalCount
       nodes {
         name
