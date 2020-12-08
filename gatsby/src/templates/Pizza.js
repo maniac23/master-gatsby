@@ -15,7 +15,7 @@ export default function SinglePizzaPage({ data: { pizza } }) {
     <PizzaGrid>
       <Img fluid={pizza.image.asset.fluid} />
       <div>
-        <h2 className='mark'>{pizza.name}</h2>
+        <h2 className="mark">{pizza.name}</h2>
         <ul>
           {pizza.toppings.map((topping) => (
             <li key={topping.id}>{topping.name}</li>
