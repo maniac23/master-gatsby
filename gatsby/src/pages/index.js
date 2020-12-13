@@ -36,8 +36,6 @@ function HotSlices({ hotSlices }) {
 
 export default function HomePage() {
   const { slicemasters, hotSlices } = useLatestData();
-  console.log({ slicemasters });
-  console.log({ hotSlices });
   return (
     <div className="center">
       <h1>The Best pizza Downtown</h1>

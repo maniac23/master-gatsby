@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import SEO from '../components/SEO';
 
 export default function SliceMasterPage({ data: { person } }) {
-  console.log(person);
   return (
     <>
       <SEO

@@ -55,7 +55,6 @@ export default function usePizza({ pizzas, values }) {
       }
     );
     const text = await res.text();
-    console.log(JSON.stringify(text));
 
     // check if everything worked
     if (res.status >= 400 && res.status < 600) {
