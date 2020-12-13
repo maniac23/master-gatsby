@@ -20,7 +20,7 @@ export const ItemStyles = styled.div`
     font-size: 0;
   }
   p {
-    transform: rotate(-2deg) translateY(-50%);
+    transform: rotate(-2deg) translateY(-140%);
     position: absolute;
     left: 0;
     width: 100%;
